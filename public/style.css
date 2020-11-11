@@ -1,0 +1,85 @@
+body {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+.leftColumn {
+    height: 100%;
+    width: 50%;
+    flex-direction: column;
+}
+
+.dataHeaders {
+    height: 20%;
+}
+
+.videoCapture {
+    height: 60%;
+}
+
+.upgradeButtons {
+    height: 20%;
+}
+
+#upgradeManualTitle {
+    margin-bottom: 10px;
+}
+
+#mindfulnessAverage {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#lastBreath {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#upgradeAutoTitle {
+    margin-bottom: 10px;
+}
+
+#autoBreatherCount {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#breathsPerSecond {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#raiseStandardInfo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#addAidInfo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.rightColumn {
+    height: 100%;
+    width: 50%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#console {
+    margin-bottom: 200px;
+}
+
+#bettingContainer {
+    margin-top: 200px;
+}
+
+.topBreathers {
+    margin: 5px;
+}
+
+.betting {
+    height: 50%;
+}

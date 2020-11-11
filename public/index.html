@@ -8,11 +8,47 @@
     <script src="https://unpkg.com/ml5@0.4.2/dist/ml5.min.js"></script>
     <link href="style.css" rel="stylesheet">
 </head>
-<body>
-    <div class="dataHeaders">
-        <h1 class="uniBreath" id="uniBreath"></h1>
-        <h2 class="indivBreath" id="indivBreath"></h2>
-        <h3 class="sessionBreath" id="sessionBreath"></h3>
+<body id="body">
+    <div class="leftColumn">
+        <div class="dataHeaders">
+            <h1 class="uniBreath" id="uniBreath">Universal Breath Count:</h1>
+            <h2 class="indivBreath" id="indivBreath">Individual Breath Count:</h2>
+            <h3 class="sessionBreath" id="sessionBreath">Session Breath Count: 0</h3>
+        </div>
+        <div class="videoCapture" id="videoCapture"></div>
+        <div class="upgradeButtons">
+            <!-- <h3 id="upgradeTitle">UPGRADE BUTTONS</h3> -->
+            <div class="upgradeManual">
+                <h3 id="upgradeManualTitle">Upgrade Manual Breathing</h4>
+                <h5 id="mindfulnessAverage">Mindfulness Average = </h6>
+                <h5 id="lastBreath">Last Breath = </h6>
+                <button id="raiseStandard">Raise Mindfulness Standard</button>
+                <h6 id="raiseStandardInfo">Mindfulness Standard</h6>
+                <button id="addAid">Add Mindfulness Aid</button>
+                <h6 id="addAidInfo">Minfulness Aids 0/3</h6>
+            </div>
+            <div class="upgradeAuto">
+                <h3 id="upgradeAutoTitle">Upgrade Automatic Breathing</h4>
+                <h5 id="autoBreatherCount">Number of Auto-Breathers = </h6>
+                <h5 id="breathsPerSecond">Automatic Breaths Per Second = </h6>
+                <button id="addAuto">Add Auto-Breather</button>
+                <button id="improveEfficiency">Improve Auto-Breather Efficiency</button>
+            </div>
+        </div>
+    </div>
+    <div class="rightColumn">
+        <div class="console" id="console">
+            <h1 id="consoleLog">> </h1>
+        </div>
+        <div class="leaderboard">
+            <h1 id="leaderboard">LEADERBOARD</h1>
+            <h3 id="topBreathersTitle">Top Five Breathers:</h3>
+            <div class="topBreathers" id="topBreathers"></div>
+        </div>
+        <div class="bettingContainer" id="bettingContainer">
+            <h1 id="betting">BETTING</h1>
+            <h3 id="bettingMechanic">Betting mechanics coming soon...</h3>
+        </div>
     </div>
     
     <script src="app.js"></script>

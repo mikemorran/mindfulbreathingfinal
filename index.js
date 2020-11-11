@@ -47,13 +47,25 @@ app.get('/getBreaths', (req, res) => {
 
 // Process POST requests and insert data whenever a user completes a breath
 app.post('/sendBreaths', (req, res) => {
-    db.insert(req.body, (err, newDocs) => {
-        if (err) {
-            res.json('failed');
+    console.log(req.body.name);
+    db.find({"name" : req.body.name}, (err, docs) => {
+        console.log(docs);
+        if (!docs[0]) {
+            db.insert(req.body, (err, newDocs) => {
+                if (err) {
+                    res.json('failed');
+                } else {
+                    console.log("new user data added");
+                    res.json({"task" : "success"});
+                }
+            });
         } else {
-            res.json({"task" : "success"});
+            db.update({"name" : req.body.name}, req.body, {multi: true}, (err, numReplaced) => {
+                console.log("userData updated");
+            });
         }
-    });
+    })
+    
 });
 
 // Initialize Socket
@@ -63,9 +75,9 @@ let io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
     console.log ('New client: ' + socket.id);
     
-    socket.on('msg', function(userObject) {
+    socket.on('msg', function(newBreaths) {
         // console.log(userObject);
-        socket.broadcast.emit('msg', userObject);
+        socket.broadcast.emit('msg', newBreaths);
     });
 });
 
