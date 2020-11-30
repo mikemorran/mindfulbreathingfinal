@@ -63,21 +63,25 @@ function runTutorial() {
     document.getElementById('tutorialDiv').style.display = "flex";
     document.getElementById('usernameInputButton').addEventListener('click', () => {
         userName = document.getElementById('usernameInput').value;
-        localStorage.username = userName;
-        document.getElementById('usernameInput').value = "";
-        beginningProtocols();
-        startBreathing = true;
-        document.getElementById('tutorialDiv').style.display = "none";
+        if (userName != "") {
+            localStorage.username = userName;
+            document.getElementById('usernameInput').value = "";
+            beginningProtocols();
+            startBreathing = true;
+            document.getElementById('tutorialDiv').style.display = "none";
+        }
     });
     window.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             if (!userName) {
                 userName = document.getElementById('usernameInput').value;
-                localStorage.username = userName;
-                document.getElementById('usernameInput').value = "";
-                beginningProtocols();
-                startBreathing = true;
-                document.getElementById('tutorialDiv').style.display = "none";
+                if (userName != "") {
+                    localStorage.username = userName;
+                    document.getElementById('usernameInput').value = "";
+                    beginningProtocols();
+                    startBreathing = true;
+                    document.getElementById('tutorialDiv').style.display = "none";
+                }
             }
         }
     });
@@ -669,7 +673,7 @@ warningAudio.addEventListener('ended', () => {
 
 document.getElementById('bettingButton').addEventListener('click', () => {
     let wager = document.getElementById('bettingInput').value;
-    if (isNaN(wager) == false && wager <= individualBreathCount && !wagerSent) {
+    if (isNaN(wager) == false && wager <= individualBreathCount && !wagerSent && wager != "") {
         wagerSent = true;
         document.getElementById('bettingInput').value = "";
         console.log(wager);
