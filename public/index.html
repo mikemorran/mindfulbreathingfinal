@@ -4,53 +4,193 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mindful Breathing</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/ml5@0.4.2/dist/ml5.min.js"></script>
-    <link href="style.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
 </head>
 <body id="body">
-    <div class="leftColumn">
-        <div class="dataHeaders">
-            <h1 class="uniBreath" id="uniBreath">Universal Breath Count:</h1>
-            <h2 class="indivBreath" id="indivBreath">Individual Breath Count:</h2>
-            <h3 class="sessionBreath" id="sessionBreath">Session Breath Count: 0</h3>
-        </div>
-        <div class="videoCapture" id="videoCapture"></div>
-        <div class="upgradeButtons">
-            <!-- <h3 id="upgradeTitle">UPGRADE BUTTONS</h3> -->
-            <div class="upgradeManual">
-                <h3 id="upgradeManualTitle">Upgrade Manual Breathing</h4>
-                <h5 id="mindfulnessAverage">Mindfulness Average = </h6>
-                <h5 id="lastBreath">Last Breath = </h6>
-                <button id="raiseStandard">Raise Mindfulness Standard</button>
-                <h6 id="raiseStandardInfo">Mindfulness Standard</h6>
-                <button id="addAid">Add Mindfulness Aid</button>
-                <h6 id="addAidInfo">Minfulness Aids 0/3</h6>
-            </div>
-            <div class="upgradeAuto">
-                <h3 id="upgradeAutoTitle">Upgrade Automatic Breathing</h4>
-                <h5 id="autoBreatherCount">Number of Auto-Breathers = </h6>
-                <h5 id="breathsPerSecond">Automatic Breaths Per Second = </h6>
-                <button id="addAuto">Add Auto-Breather</button>
-                <button id="improveEfficiency">Improve Auto-Breather Efficiency</button>
+    <audio id="soothingMusicAudio"></audio>
+    <audio id="warningAudio" src="Gopher.mp3"></audio>
+    <div id="mantraDiv" class="mantraDiv">
+        <div id="mantraDisplay" class="mantraDisplay">
+            <h1 id="mantraTitle">MANTRA MANIA</h1>
+            <h3 id="mantraDescription">Copy As Many Mantras As Fast As You Can</h3>
+            <p id="mantra"></p>
+            <div class="mantraInputDisplay" id="mantraInputDisplay">
+                <input id="mantraInput" type="text">
+                <button id="mantraInputButton">Enter</button>
             </div>
         </div>
     </div>
-    <div class="rightColumn">
-        <div class="console" id="console">
-            <h1 id="consoleLog">> </h1>
-        </div>
-        <div class="leaderboard">
-            <h1 id="leaderboard">LEADERBOARD</h1>
-            <h3 id="topBreathersTitle">Top Five Breathers:</h3>
-            <div class="topBreathers" id="topBreathers"></div>
-        </div>
-        <div class="bettingContainer" id="bettingContainer">
-            <h1 id="betting">BETTING</h1>
-            <h3 id="bettingMechanic">Betting mechanics coming soon...</h3>
+    <div id="tutorialDiv" class="tutorialDiv">
+        <div class="tutorialDisplay">
+            <div class="tutorialHeader">
+                <h4>Welcome to...</h4>
+                <h1 id="tutorialTitle">MINDFUL BREATHING</h1>
+            </div>
+            <div class="instructionsDiv">
+                <p>To play, simply face the camera and begin breathing mindfully. As you inhale, gradually raise your palms above your shoulders, taking in your surroundings as you listen to the soothing music provided by the webpage. Once your lungs have reached capacity, exhale while slowly lowering your palms face-down until they pass through the bottom of the screen. After a brief moment, begin to breathe again. With each breath, let go of something that is not useful and notice yourself dropping deeper into NOW. For best results, make sure the majority of your torso and head are visible to the camera. Sit at least 3 feet away from your camera to ensure that your hands will be tracked consistently.</p>
+                <video id="tutorialVideo" src="tutorialVideo.mp4" loop controls volume="0">
+                </video>
+                <p>When you are ready to begin your journey, simply enter a name that you feel best describes you today and click 'Start Breathing'.</p>
+                <div class="inputDisplay">
+                    <input id="usernameInput" type="text">
+                    <button id="usernameInputButton">Start Breathing</button>
+                </div>
+            </div>
         </div>
     </div>
-    
+    <div class="gameDiv">
+        <div class="column1Div">
+            <div class="topLeftSpacer"></div>
+            <div class="upgradesDiv">
+                <h2 id="upgradesTitle">Upgrades</h2>
+                <hr id="upgradesBreak">
+                <h4 id="manualTitle">Manual</h4>
+                <div class="mindfulnessAidsDisplay">
+                    <button id="mindfulnessAidsButton">Mindfulness Aid</button>
+                    <span id="mindfulnessAidsReadout">0/3</span>
+                </div>
+                <span id="aidDescription">Multiply the value of each manual breath</span>
+                <div class="mindfulnessStandardDisplay">
+                    <button id="mindfulnessStandardButton">Mindfulness Standard</button>
+                    <span id="mindfulnessStandardReadout">+/- 30</span>
+                </div>
+                <span id="standardDescription">Raise the standard for manual breathing consistency bonuses</span>
+                <h4 id="automaticTitle">Automatic</h4>
+                <div class="autoBreatherDisplay">
+                    <button id="autoBreatherButton">Auto Breather</button>
+                    <span id="autoBreatherReadout">0</span>
+                </div>
+                <span id="autoDescription">Add automatic breathers</span>
+                <div class="autoBreatherProfDisplay">
+                    <button id="autoBreatherProfButton">Auto Breather Proficiency</button>
+                    <span id="autoBreatherProfReadout">x0</span>
+                </div>
+                <span id="autoProfDescription">Increase speed of automatic breathing</span>
+            </div>
+            <div class="metricsDiv">
+                <h3 id="metricsTitle">Breathing Metrics</h3>
+                <hr>
+                <div class="averageDisplay">
+                    <b>Mindfulness Average:&nbsp;&nbsp;</b>
+                    <span id="averageReadout">0</span>
+                </div>
+                <div class="lastBreathDisplay">
+                    <b>Last Breath:&nbsp;&nbsp;</b>
+                    <span id="lastBreathReadout">0</span>
+                </div>
+                <div class="BPBDisplay">
+                    <b>Breaths Per Manual Breath:&nbsp;&nbsp;</b>
+                    <span id="BPBReadout">0</span>
+                </div>
+                <div class="consistencyBonusDisplay">
+                    <b>Consistency Bonus:&nbsp;&nbsp;</b>
+                    <span id="consistencyBonusReadout">0</span>
+                </div>
+                <div class="autoBPSDisplay">
+                    <b>Automatic Breaths Per Second:&nbsp;&nbsp;</b>
+                    <span id="autoBPSReadout">0</span>
+                </div>
+            </div>
+        </div>
+        <div class="column2Div">
+            <div class="headingsDiv">
+                <h1 id="title">MINDFUL BREATHING</h1>
+                <div class="breathCounts">
+                <h3 id="universalBreathCount">Universal Breath Count: 0</h2>
+                <h3 id="individualBreathCount">Individual Breath Count: 0</h2>
+                <h3 id="sessionBreathCount">Session Breath Count: 0</h2>
+                </div>
+            </div>
+            <div class="videoCaptureDiv" id="videoCaptureDiv">
+            </div>
+            <div class="consoleDiv">
+                <span class="readout">> Next upgrade at 10 breaths</span>
+                <span class="readout">> Next upgrade at 25 breaths</span>
+                <span class="readout">> Next upgrade at 50 breaths</span>
+                <span class="readout">> Next upgrade at 75 breaths</span>
+                <span class="readout">> Next upgrade at 100 breaths</span>
+                <span class="readout">> Next upgrade at 250 breaths</span>
+                <span class="readout">> Next upgrade at 500 breaths</span>
+                <span class="readout">> Next upgrade at 750 breaths</span>
+                <span class="readout">> Next upgrade at 1000 breaths</span>
+                <span class="readout">> Next upgrade at 10 breaths</span>
+                <span class="readout">> Next upgrade at 25 breaths</span>
+                <span class="readout">> Next upgrade at 50 breaths</span>
+                <span class="readout">> Next upgrade at 75 breaths</span>
+                <span class="readout">> Next upgrade at 100 breaths</span>
+                <span class="readout">> Next upgrade at 250 breaths</span>
+                <span class="readout">> Next upgrade at 500 breaths</span>
+                <span class="readout">> Next upgrade at 750 breaths</span>
+                <span class="readout">> Next upgrade at 1000 breaths</span>
+            </div>
+        </div>
+        <div class="column3Div">
+            <div class="topRightSpacer"></div>
+            <div class="leaderboardDiv">
+                <h2 id="leaderboardTitle">Top Breathers</h2>
+                <hr>
+                <div class="topTenDiv">
+                    <div class="numberOneDisplay">
+                        <b id="number1Marker">#1 &nbsp;&nbsp;</b>
+                        <span id="number1Readout">Number 1 with ___ breaths</span>
+                    </div>
+                    <div class="numberTwoDisplay">
+                        <b id="number2Marker">#2 &nbsp;&nbsp;</b>
+                        <span id="number2Readout">Number 2 with ___ breaths</span>
+                    </div>
+                    <div class="numberThreeDisplay">
+                        <b id="number3Marker">#3 &nbsp;&nbsp;</b>
+                        <span id="number3Readout">Number 3 with ___ breaths</span>
+                    </div>
+                    <div class="numberFourDisplay">
+                        <b id="number4Marker">#4 &nbsp;&nbsp;</b>
+                        <span id="number4Readout">Number 4 with ___ breaths</span>
+                    </div>
+                    <div class="numberFiveDisplay">
+                        <b id="number5Marker">#5 &nbsp;&nbsp;</b>
+                        <span id="number5Readout">Number 5 with ___ breaths</span>
+                    </div>
+                    <div class="numberSixDisplay">
+                        <b id="number6Marker">#6 &nbsp;&nbsp;</b>
+                        <span id="number6Readout">Number 6 with ___ breaths</span>
+                    </div>
+                    <div class="numberSevenDisplay">
+                        <b id="number7Marker">#7 &nbsp;&nbsp;</b>
+                        <span id="number7Readout">Number 7 with ___ breaths</span>
+                    </div>
+                    <div class="numberEightDisplay">
+                        <b id="number8Marker">#8 &nbsp;&nbsp;</b>
+                        <span id="number8Readout">Number 8 with ___ breaths</span>
+                    </div>
+                    <div class="numberNineDisplay">
+                        <b id="number9Marker">#9 &nbsp;&nbsp;</b>
+                        <span id="number9Readout">Number 9 with ___ breaths</span>
+                    </div>
+                    <div class="numberTenDisplay">
+                        <b id="number10Marker">#10&nbsp;</b>
+                        <span id="number10Readout">Number 10 with ___ breaths</span>
+                    </div>
+                </div>
+                <h4 id="userRankTitle">User Rank:</h4>
+                <div class="userRankDisplay">
+                    <b id="userRankMarker">#0 &nbsp;&nbsp;</b>
+                    <span id="userRankReadout">Username with 0 breaths</span>
+                </div>
+            </div>
+            <div class="bettingDiv">
+                <h3 id="bettingTitle">Betting</h3>
+                <hr>
+                <div id="challengeFeedDiv" class="challengeFeedDiv"></div>
+                <hr>
+                <div class="challengeDiv">
+                    <input id="bettingInput" type="text" placeholder="# of breaths...">
+                    <button id="bettingButton">Bet</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="app.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script> var socket = io(); </script>

@@ -1,85 +1,346 @@
+html,
 body {
+    width: 100%;
+    height: 100%;
+}
+
+.mantraDiv {
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255, 0.7);
+}
+
+.mantraDisplay {
+    width: 50%;
+    height: 60%;
+    top: 20%;
+    left: 25%;
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    background-color: rgb(105, 18, 18);
+    overflow-y: scroll;
+}
+
+#mantra {
+    height: 40%;
+    width: 60%;
+}
+
+.mantraInputDisplay {
+    width: 60%;
+}
+
+#mantraInput {
+    width: 80%;
+}
+
+.tutorialDiv {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255, 0.7);
+}
+
+.tutorialDisplay {
+    width: 80%;
+    height: 90%;
+    top: 5%;
+    left: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    background-color: rgb(145, 145, 145);
+    overflow-y: scroll;
+}
+
+.tutorialHeader {
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
-.leftColumn {
+#tutorialTitle {
+    font-size: xx-large;
+}
+
+.tutorialHeader {
+    margin-top: 3em;
+}
+
+.tutorialHeader > * {
+    margin-bottom: 8px;
+    margin-top: 0;
+}
+
+.instructionsDiv {
+    width: 60%;
+    margin-bottom: 1em;
+}
+
+#tutorialVideo {
+    width: 100%;
+}
+
+.gameDiv {
+    z-index: -1;
+    width: 100%;
     height: 100%;
-    width: 50%;
-    flex-direction: column;
-}
-
-.dataHeaders {
-    height: 20%;
-}
-
-.videoCapture {
-    height: 60%;
-}
-
-.upgradeButtons {
-    height: 20%;
-}
-
-#upgradeManualTitle {
-    margin-bottom: 10px;
-}
-
-#mindfulnessAverage {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#lastBreath {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#upgradeAutoTitle {
-    margin-bottom: 10px;
-}
-
-#autoBreatherCount {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#breathsPerSecond {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#raiseStandardInfo {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#addAidInfo {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.rightColumn {
-    height: 100%;
-    width: 50%;
+    display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: space-around;
 }
 
-#console {
-    margin-bottom: 200px;
+/* Column 1 */
+.column1Div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 20%;
 }
 
-#bettingContainer {
-    margin-top: 200px;
+.topLeftSpacer {
+    height: 20%;
+    overflow: hidden;
 }
 
-.topBreathers {
-    margin: 5px;
+.upgradesDiv {
+    height: 55%;
+    border-style: solid;
+    padding: 5px;
+    overflow-y: scroll;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
-.betting {
+#upgradesTitle {
+    margin-top: 0.5em;
+    margin-bottom: 0em;
+}
+
+#manualTitle {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+#aidDescription {
+    font-size: 12px;
+}
+
+.mindfulnessStandardDisplay {
+    margin-top: 0.5em;
+}
+
+#standardDescription {
+    font-size: 12px;
+}
+
+#automaticTitle {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+#autoDescription {
+    font-size: 12px;
+}
+
+.autoBreatherProfDisplay {
+    margin-top: 0.5em;
+}
+
+#autoProfDescription {
+    font-size: 12px;
+}
+
+.metricsDiv {
+    overflow-y: scroll;
+    height: 25%;
+    border-style: solid;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#metricsTitle {
+    margin-top: 0.5em;
+    margin-bottom: 0em;
+}
+
+.averageDisplay {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 0.5em;
+    margin-top: 1em;
+    font-size: 14px;
+}
+
+.lastBreathDisplay {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 0.5em;
+    font-size: 14px;
+}
+
+.BPBDisplay {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 0.5em;
+    font-size: 14px;
+}
+
+.consistencyBonusDisplay {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 0.5em;
+    font-size: 14px;
+}
+
+.autoBPSDisplay {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 0.5em;
+    font-size: 14px;
+}
+
+/* Column 2 */
+.column2Div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 50%;
+}
+
+.headingsDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 20%;
+    overflow: hidden;
+    margin-bottom: 0.5em;
+}
+
+.breathCounts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.breathCounts > * {
+    margin-top: 0.1em;
+    margin-bottom: 0em;
+    font-size: larger;
+}
+
+#title {
+    margin-top: 0.5em;
+    margin-bottom: 0.2em;
+    text-decoration: underline;
+}
+
+.videoCaptureDiv {
+    height: 55%;
+    border-style: solid;
+    overflow: hidden;
+    margin-top: 0;
+}
+
+.consoleDiv {
+    visibility: visible;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    height: 25%;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.readout {
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: 5px;
+    letter-spacing: 0.5px;
+}
+
+/* Column 3 */
+.column3Div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 20%;
+}
+
+.topRightSpacer {
+    height: 20%;
+    overflow: hidden;
+}
+
+.leaderboardDiv {
+    height: 55%;
+    border-style: solid;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    overflow-y: scroll;
+}
+
+#leaderboardTitle {
+    margin-top: 0.5em;
+    margin-bottom: 0em;
+}
+
+#userRankTitle {
+    margin-bottom: 0.5em;
+}
+
+.userRankDisplay {
+    visibility: hidden;
+}
+
+.topTenDiv > * {
+    margin-bottom: 0.3em;
+    visibility: hidden;
+}
+
+.bettingDiv {
+    height: 25%;
+    border-style: solid;
+    padding: 5px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#bettingTitle {
+    margin-top: 0.5em;
+    margin-bottom: 0em;
+}
+
+.challengeFeedDiv {
     height: 50%;
+    overflow-y: scroll;
 }
