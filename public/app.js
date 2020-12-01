@@ -21,7 +21,7 @@ let mindfulnessAidMultiplier = 1;
 let standardActivated = false;
 let fidelityBonus = 0;
 let lastBreathCount;
-let upgradeIntervals = [16, 80, 240, 960, 2880, 7680, 23040, 69120, 161780, 322560, 645120, 1941360, 3882720, 7765220, 23296320, 38827700, 77654400, 155308800, 310617660, 621235200];
+let upgradeIntervals = [5, 16, 80, 240, 960, 2880, 7680, 23040, 69120, 161780, 322560, 645120, 1941360, 3882720, 7765220, 23296320, 38827700, 77654400, 155308800, 310617660, 621235200];
 let upgradeCounter = 0;
 let autoBreatherProfMultiplier = 1;
 let aidCounter = 0;
@@ -45,7 +45,7 @@ let wagerSent = false;
 
 window.addEventListener('load', () => {
     // CHECK FOR AND HANDLE STORED USERNAME
-    // localStorage.removeItem("username");
+    localStorage.removeItem("username");
     let storedUsername = localStorage.username;
     console.log(localStorage.username);
     if (!storedUsername) {
@@ -168,6 +168,8 @@ function getUserData() {
         }
         lastBreathCount = individualBreathCount;
         updateBreaths();
+        let message = "Next upgrade at " + upgradeIntervals[upgradeCounter] + " breaths. Upgrade Points: " + upgradePoints;
+        newMessage(message);
         setInterval(() => { postData(); }, 20000);
     });
 }
@@ -200,6 +202,7 @@ function loadLeaderboard() {
             if (individuals[i].name == userName) {
                 let marker = document.getElementById('userRankMarker');
                 let readout = document.getElementById('userRankReadout');
+                document.getElementById('userRankDisplay').style.visibility = "visible";
                 marker.innerHTML = "#" + (i+1);
                 readout.innerHTML = individuals[i].name.bold() + " with " + individuals[i].individualBreathBreathCount + " breaths";
             }
@@ -423,9 +426,6 @@ function draw() {
                     // Update document
                     updateBreaths();
 
-                    // POST Data
-                    // postData();
-
                     // EMIT user specific object to server
                     let newBreaths = individualBreathCount - lastBreathCount;
 
@@ -452,23 +452,15 @@ function draw() {
 function runUpgrades() {
     console.log("Upgrade Points: ", upgradePoints);
     if (individualBreathCount >= upgradeIntervals[upgradeCounter]) {
-        console.log(upgradePoints);
-        console.log(upgradeCounter);
         upgradeCounter++;
         upgradePoints++;
+        let message = "New upgrade available. Next upgrade at " + upgradeIntervals[upgradeCounter] + " breaths. Upgrade Points: " + upgradePoints;
+        newMessage(message);
     }
     if (upgradePoints > 0) {
         upgradeAvailable = true;
     } else {
         upgradeAvailable = false;
-    }
-
-    if (upgradeAvailable) {
-        // CONSOLE NOTIFICATION
-        // console.log('upgrade available');
-    } else {
-        // CONSOLE NOTIFICATION
-        // console.log('upgrade not available');
     }
 }
 
@@ -528,6 +520,8 @@ function tooFast() {
     document.getElementById('sessionBreathCount').style.visibility = "hidden";
     audio.pause();
     warningAudio.play();
+    let message = "You are not being mindful enough.";
+    newMessage(message);
 }
 
 function updateBreaths() {
@@ -599,6 +593,8 @@ document.getElementById('mindfulnessStandardButton').addEventListener('click', f
                 }
             fidelityBonus += 5;
             upgradePoints -= 1;
+            let message = "Mindfulness Standard raised. Upgrade Points: " + upgradePoints;
+            newMessage(message);
             document.getElementById('consistencyBonusReadout').innerHTML = fidelityBonus;
         }
     } else {
@@ -616,10 +612,14 @@ document.getElementById('mindfulnessAidsButton').addEventListener('click', funct
             if (aidCounter == 1) {
                 prettyHandsDraw = true;
                 mindfulnessAidMultiplier = 2;
+                let message = "Pretty Hands added. All manual breaths now worth double. Upgrade Points: " + upgradePoints;
+                newMessage(message);
             }
             if (aidCounter == 2) {
                 motivationalQuotesDraw = true;
                 mindfulnessAidMultiplier = 3;
+                let message = "Motivational Quotes added. All manual breaths now worth triple. Upgrade Points: " + upgradePoints;
+                newMessage(message);
             }
             if (aidCounter == 3) {
                 document.getElementById("body").style.color = "ivory";
@@ -627,9 +627,11 @@ document.getElementById('mindfulnessAidsButton').addEventListener('click', funct
                 document.getElementById("body").style.backgroundRepeat = "no-repeat";
                 document.getElementById("body").style.backgroundSize = "cover";
                 mindfulnessAidMultiplier = 4;
+                let message = "Serene Scenery added. All manual breaths now worth quadruple. Upgrade Points: " + upgradePoints;
+                newMessage(message);
             }
         }
-        document.getElementById('BPBReadout').innerHTML = mindfulnessAidMultiplier;
+        document.getElementById('BPBReadout').innerHTML = 1 * mindfulnessAidMultiplier;
     } else {
         console.log('no points')
     }
@@ -641,6 +643,8 @@ document.getElementById('autoBreatherButton').addEventListener('click', function
         autoActivated = true;
         autoCounter++;
         upgradePoints -= 1;
+        let message = "Auto Breather added. Upgrade Points: " + upgradePoints;
+        newMessage(message);
         document.getElementById('autoBreatherReadout').innerHTML = autoCounter;
         let autoBreathsPerSecond = round(autoCounter/(2/autoBreatherProfMultiplier), 2);
         document.getElementById('autoBPSReadout').innerHTML = autoBreathsPerSecond;
@@ -654,6 +658,8 @@ document.getElementById('autoBreatherProfButton').addEventListener('click', func
         console.log('Proficiency Chosen');
         autoBreatherProfMultiplier++;
         upgradePoints -= 1;
+        let message = "Auto Breather proficiency increased. Upgrade Points: " + upgradePoints;
+        newMessage(message);
         document.getElementById('autoBreatherProfReadout').innerHTML = "x" + autoBreatherProfMultiplier;
         let autoBreathsPerSecond = round(autoCounter/(2/autoBreatherProfMultiplier), 2);
         document.getElementById('autoBPSReadout').innerHTML = autoBreathsPerSecond;
@@ -684,11 +690,19 @@ document.getElementById('bettingButton').addEventListener('click', () => {
             "wager" : wager
         }
         socket.emit('bet', userObject);
+        let message = "Challenge sent";
+        newMessage(message);
     } else {
         console.log("Invalid Input");
+        let message = "Invalid input";
+        newMessage(message);
     }
 });
 
-// function newMessage(message) {
-//     document.
-// }
+function newMessage(message) {
+    let readOut = document.createElement("span");
+    readOut.className = "readout";
+    readOut.innerHTML = "> " + message;
+    let consoleDiv = document.getElementById('consoleDiv');
+    consoleDiv.appendChild(readOut);
+}
