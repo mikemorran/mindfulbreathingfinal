@@ -126,6 +126,7 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.2);
+    visibility: hidden;
 }
 
 #upgradesTitle {
@@ -174,6 +175,7 @@ body {
     padding: 5px;
     margin-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.2);
+    visibility: hidden;
 }
 
 #metricsTitle {
@@ -241,7 +243,7 @@ body {
 }
 
 .breathCounts {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
@@ -267,7 +269,7 @@ body {
 }
 
 .consoleDiv {
-    visibility: visible;
+    visibility: hidden;
     background-color: rgba(0, 0, 0, 0.9);
     padding: 5px;
     display: flex;
@@ -307,6 +309,7 @@ body {
     margin-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.2);
     overflow-y: scroll;
+    visibility: hidden;
 }
 
 #leaderboardTitle {
@@ -334,6 +337,7 @@ body {
     overflow-y: scroll;
     margin-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.2);
+    visibility: hidden;
 }
 
 #bettingTitle {
