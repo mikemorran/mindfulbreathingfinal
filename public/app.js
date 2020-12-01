@@ -45,7 +45,7 @@ let wagerSent = false;
 
 window.addEventListener('load', () => {
     // CHECK FOR AND HANDLE STORED USERNAME
-    localStorage.removeItem("username");
+    // localStorage.removeItem("username");
     let storedUsername = localStorage.username;
     console.log(localStorage.username);
     if (!storedUsername) {
