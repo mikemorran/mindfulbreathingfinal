@@ -48,7 +48,7 @@ function beginningProtocols() {
     .then(response => response.json())
     .then(data => {
         soundData = data.results;
-        // console.log(soundData);
+        console.log(soundData);
         newSong();
     });
 

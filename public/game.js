@@ -62,7 +62,6 @@ function draw() {
         runAutoBreathers();
         runUpgrades();
         growDisplay();
-        console.log(individualBreathCount);
     }
     counter++;
     endBettingMinigame();
@@ -175,4 +174,10 @@ function newMessage(message) {
     readOut.innerHTML = "> " + message;
     let consoleDiv = document.getElementById('Console');
     consoleDiv.appendChild(readOut);
+}
+
+function addBreaths() {
+    individualBreathCount += 20000;
+    sessionBreathCount += 20000;
+    updateBreaths;
 }

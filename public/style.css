@@ -349,3 +349,287 @@ body {
     height: 50%;
     overflow-y: scroll;
 }
+
+.inhaleExhale {
+    display: none;
+    position: fixed;
+    z-index: 5;
+    top: 15%;
+    width: 45%;
+    height: 55%;
+    justify-content: space-between;
+}
+
+.inhaleExhaleTitle {
+    color: rgb(255, 45, 45);
+}
+
+#inhale {
+    transform: rotate(-25deg);
+    font-size: 400%;
+}
+
+#exhale {
+    transform: rotate(25deg);
+    font-size: 400%;
+}
+
+.plants {
+    display: none;
+    position: fixed;
+    z-index: 3;
+    width: 150px;
+    height: 300px;
+}
+
+#plant1Display {
+    left: 65%;
+    top: 68%;
+    position: fixed;
+    z-index: 3;
+}
+#plant2Display {
+    left: -5%;
+    top: 68%;
+    position: fixed;
+    z-index: 3;
+}
+#plant3Display {
+    left: 12%;
+    top: 68%;
+    position: fixed;
+    z-index: 3;
+}
+#plant4Display {
+    left: 15%;
+    top: 68%;
+    position: fixed;
+    z-index: 3;
+}
+#plant5Display {
+    left: 70%;
+    top: 68%;
+    position: fixed;
+    z-index: 3;
+}
+#plant6Display {
+    left: 72%;
+    top: 68%;
+    position: fixed;
+    z-index: 3;
+}
+#plant7Display {
+    left: 20%;
+    top: 68%;
+    position: fixed;
+    z-index: 3;
+}
+#plant8Display {
+    left: 45%;
+    top: 68%;
+    position: fixed;
+    z-index: 3;
+}
+#plant9Display {
+    left: 95%;
+    top: 68%;
+    position: fixed;
+    z-index: 3;
+}
+#plant10Display {
+    left: 60%;
+    top: 68%;
+    position: fixed;
+    z-index: 3;
+}
+
+.mandalas {
+    width: 150px;
+    height: 150px;
+    position: fixed;
+    display: none;
+    z-index: 4;
+}
+
+#mandala1Display {
+    width: 10%;
+    height: 10%;
+    left: 15%;
+    top: 3%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala2Display {
+    width: 10%;
+    height: 10%;
+    left: 65%;
+    top: 3%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala3Display {
+    width: 10%;
+    height: 10%;
+    left: 25%;
+    top: 50%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala4Display {
+    width: 10%;
+    height: 10%;
+    left: 85%;
+    top: 15%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala5Display {
+    width: 10%;
+    height: 10%;
+    left: 90%;
+    top: 60%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala6Display {
+    width: 10%;
+    height: 10%;
+    left: 70%;
+    top: 45%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala7Display {
+    width: 10%;
+    height: 10%;
+    left: 20%;
+    top: 60%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala8Display {
+    width: 10%;
+    height: 10%;
+    left: 18%;
+    top: 4%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala9Display {
+    width: 10%;
+    height: 10%;
+    left: 45%;
+    top: 20%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala10Display {
+    width: 10%;
+    height: 10%;
+    left: 30%;
+    top: -5%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala11Display {
+    width: 10%;
+    height: 10%;
+    left: 5%;
+    top: 15%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala12Display {
+    width: 10%;
+    height: 10%;
+    left: 70%;
+    top: 15%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala13Display {
+    width: 10%;
+    height: 10%;
+    left: 90%;
+    top: 10%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala14Display {
+    width: 10%;
+    height: 10%;
+    left: 0%;
+    top: 5%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala15Display {
+    width: 10%;
+    height: 10%;
+    left: 75%;
+    top: 5%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala16Display {
+    width: 10%;
+    height: 10%;
+    left: 50%;
+    top: -10%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala17Display {
+    width: 10%;
+    height: 10%;
+    left: 40%;
+    top: 15%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala18Display {
+    width: 10%;
+    height: 10%;
+    left: 60%;
+    top: -5%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala19Display {
+    width: 10%;
+    height: 10%;
+    left: 80%;
+    top: 0%;
+    position: fixed;
+    z-index: 4;
+}
+
+#mandala20Display {
+    width: 10%;
+    height: 10%;
+    left: 25%;
+    top: 5%;
+    position: fixed;
+    z-index: 4;
+}
+
+
+
