@@ -128,26 +128,47 @@ function runGraphics() {
         randomQuoteChoice = Math.floor(Math.random() * quoteData.length);
     }
     if (motivationalQuotesDraw == true) {
-        let author = quoteData[randomQuoteChoice].author;
-        let quote = quoteData[randomQuoteChoice].text;
-        if (author) {
-            stroke(0);
-            strokeWeight(1);
-            fill(255);
-            textSize(18);
-            textAlign(CENTER);
-            text(author, width - pose.nose.x, pose.nose.y - 50);
-            text(quote, width - pose.nose.x, pose.nose.y - 100);
-        }
-        if (!author) {
-            stroke(0);
-            strokeWeight(1);
-            fill(255);
-            textSize(18);
-            textAlign(CENTER);
-            text(quote, width - pose.nose.x, pose.nose.y - 100);
+        if (quoteData){
+            let author = quoteData[randomQuoteChoice].author;
+            let quote = quoteData[randomQuoteChoice].text;
+            if (author) {
+                stroke(0);
+                strokeWeight(1);
+                fill(255);
+                textSize(18);
+                textAlign(CENTER);
+                text(author, width - pose.nose.x, pose.nose.y - 50);
+                text(quote, width - pose.nose.x, pose.nose.y - 100);
+            }
+            if (!author) {
+                stroke(0);
+                strokeWeight(1);
+                fill(255);
+                textSize(18);
+                textAlign(CENTER);
+                text(quote, width - pose.nose.x, pose.nose.y - 100);
+            }
         }
     }
+    if (counter % 5 == 0) {
+        if (black) {
+            document.getElementsByClassName('inhaleExhaleTitle')[0].style.color = "red";
+            document.getElementsByClassName('inhaleExhaleTitle')[1].style.color = "red";
+        } else {
+            document.getElementsByClassName('inhaleExhaleTitle')[0].style.color = "black"; 
+            document.getElementsByClassName('inhaleExhaleTitle')[1].style.color = "black"; 
+        }
+        black = !black;
+    }
+    // for (i = 0; i < mandalas.length; i++) {
+    //     let randomChangeX = random(-1, 1);
+    //     let randomChangeY = random(-1, 1);
+    //     let oldTop = mandalas[i].top;
+    //     let oldLeft = mandalas[i].left;
+    //     console.log(oldTop);
+    //     console.log(oldLeft);
+
+    // }
 }
 
 function tooFast() {

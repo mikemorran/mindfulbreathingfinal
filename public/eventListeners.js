@@ -15,6 +15,8 @@ document.getElementById('mindfulnessStandardButton').addEventListener('click', f
         }
     } else {
         console.log('no points')
+        let message = "No upgrade points available."
+        newMessage(message);
     }
 });
 
@@ -66,6 +68,8 @@ document.getElementById('autoBreatherButton').addEventListener('click', function
         document.getElementById('autoBPSReadout').innerHTML = autoBreathsPerSecond;
     } else {
         console.log('no points')
+        let message = "No upgrade points available.";
+        newMessage(message);
     }
 });
 

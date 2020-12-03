@@ -46,3 +46,5 @@ let challenger1;
 let challengeWager;
 let wagerSent = false;
 let leaderboardReadout = false;
+let black = false;
+let mandalas = document.getElementsByClassName('mandalaDisplays');
