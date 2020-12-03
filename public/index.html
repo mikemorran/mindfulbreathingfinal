@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mindful Breathing</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/ml5@0.4.2/dist/ml5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+    <script src="https://unpkg.com/ml5@0.4.2/dist/ml5.min.js"></script>
 </head>
 <body id="body">
     <audio id="soothingMusicAudio"></audio>
@@ -28,15 +28,23 @@
                 <h4>Welcome to...</h4>
                 <h1 id="tutorialTitle">MINDFUL BREATHING</h1>
             </div>
+            <div id="tutorialVideoCaptureDiv" class="tutorialVideoCaptureDiv">
+                <img id="tutorialImage" src="tutorial.png">
+            </div>
+            <div id="tutorialBreathCounterDisplay">
+                <h3 id="tutorialBreathCounter">Breath Count:</h3>
+            </div>
             <div class="instructionsDiv">
-                <p>To play, simply face the camera and begin breathing mindfully. As you inhale, gradually raise your palms above your shoulders, taking in your surroundings as you listen to the soothing music provided by the webpage. Once your lungs have reached capacity, exhale while slowly lowering your palms face-down until they pass through the bottom of the screen. After a brief moment, begin to breathe again. With each breath, let go of something that is not useful and notice yourself dropping deeper into NOW. For best results, make sure the majority of your torso and head are visible to the camera. Sit at least 3 feet away from your camera to ensure that your hands will be tracked consistently.</p>
-                <video id="tutorialVideo" src="tutorialVideo.mp4" loop controls volume="0">
-                </video>
-                <p>Please note that low lighting or backlighting may negatively influence performance. When you are ready to begin your journey, simply enter a name that you feel best describes you today and click 'Start Breathing'.</p>
-                <div class="inputDisplay">
-                    <input id="usernameInput" type="text">
-                    <button id="usernameInputButton">Start Breathing</button>
-                </div>
+                <p id="slide1Text">With this application, you will use your body to reach new heights of calm and self-actualization. Take a moment to ensure your camera is enabled. If you are on a PC, please make sure there are no other applications currently using your camera.</p>
+                <p id="slide2Text">Simply place your body within the frame of the camera, making sure that your head and a majority of your torso are visible.</p>
+                <p id="slide3Text">As you inhale, slowly raise your palms upwards until they reach eye level. As you exhale, flip your palms and slowly lower them facing downward until they pass through the bottom of the screen. Take a minute here to practice.</p>
+                <p id="slide4Text">If you have taken a mindful breath, you will see your Breath Count increase. Repeat the breathing process to unlock Mindfulness Enhancements on your journey toward Transcendence.</p>
+                <p id="slide5Text">Please note that backlighting and dark backgrounds may negatively influence breath-tracking performance. When you are ready to begin, simply enter a name that you feel best describes you today and click 'Start Breathing'</p>
+                <button id="nextButton">Next</button>
+            </div>
+            <div id="inputDisplay" class="inputDisplay">
+                <input id="usernameInput" type="text">
+                <button id="usernameInputButton">Start Breathing</button>
             </div>
         </div>
     </div>

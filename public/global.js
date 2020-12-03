@@ -49,3 +49,8 @@ let leaderboardReadout = false;
 let black = false;
 let mandalas = document.getElementsByClassName('mandalaDisplays');
 let plants = document.getElementsByClassName('plantDisplays');
+let tutorial;
+let tutorialVideoWidth;
+let tutorialVideoHeight;
+let Canvas;
+let tutorialAnimation;

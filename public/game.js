@@ -1,11 +1,38 @@
+let ellipseY = 0;
+let ellipseUpward = true;
+let ellipseVelocity = 1;
+let tutorialBreathCount = 0;
 
 function draw() {
-    push();
-    translate(width,0);
-    scale(-1, 1);
-    image(video, 0, 0, videoWidth, videoHeight);
-    pop();
+    if (tutorial) {
+        console.log('drawingVideo');
+        push();
+        translate(width, 0);
+        scale(-1, 1);
+        image(video, 0, 0, tutorialVideoWidth, tutorialVideoHeight);
+        pop();
+        if (tutorialAnimation) {
+            noFill();
+            stroke(255);
+            strokeWeight(4);
+            ellipse(tutorialVideoWidth/5, tutorialVideoHeight - ellipseY, 50);
+            ellipse(4*tutorialVideoWidth/5, tutorialVideoHeight - ellipseY, 50);
+            ellipseY += ellipseVelocity;
+            if (ellipseY <= 0 || ellipseY >= tutorialVideoHeight * 0.8) {
+                ellipseVelocity *= -1;
+            }
+        }
+        if (counter % 100 == 0) {
+            tutorialBreathCount++;
+            document.getElementById('tutorialBreathCounter').innerHTML = "Breath Count: " + tutorialBreathCount;
+        }
+    }
     if (pose && startBreathing) {
+        push();
+        translate(width,0);
+        scale(-1, 1);
+        image(video, 0, 0, videoWidth, videoHeight);
+        pop();
         if (pose.rightWrist.y >= height && pose.leftWrist.y >= height) {
             if (!inhaleComplete) {
                 breathStart = true;
