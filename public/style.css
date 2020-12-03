@@ -351,13 +351,14 @@ body {
 }
 
 .inhaleExhale {
-    display: none;
+    display: flex;
     position: fixed;
     z-index: 5;
     top: 15%;
     width: 45%;
     height: 55%;
     justify-content: space-between;
+    visibility: hidden;
 }
 
 .inhaleExhaleTitle {

@@ -68,7 +68,7 @@ function newSong() {
     randomSoundChoice = Math.floor(Math.random() * soundData.length);
     randomSoundId = soundData[randomSoundChoice].id;
     console.log(randomSoundId)
-    fetch("https://freesound.org/apiv2/sounds/" + 155140 + "/?token=vdWfnwlKlxbL6YJGxNHDPrxdzPAluoeNg0Kv5ii4")
+    fetch("https://freesound.org/apiv2/sounds/" + randomSoundChoice + "/?token=vdWfnwlKlxbL6YJGxNHDPrxdzPAluoeNg0Kv5ii4")
     .then(response => response.json())
     .then(data => {
         mp3URL = data.previews['preview-hq-mp3'];

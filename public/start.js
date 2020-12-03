@@ -44,7 +44,7 @@ function runTutorial() {
 
 function beginningProtocols() {
     // GET SOUND
-    fetch("https://freesound.org/apiv2/search/text/?query=intense&token=vdWfnwlKlxbL6YJGxNHDPrxdzPAluoeNg0Kv5ii4")
+    fetch("https://freesound.org/apiv2/search/text/?query=soothing&token=vdWfnwlKlxbL6YJGxNHDPrxdzPAluoeNg0Kv5ii4")
     .then(response => response.json())
     .then(data => {
         soundData = data.results;

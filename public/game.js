@@ -1,3 +1,5 @@
+console.log(plants[0]);
+
 function draw() {
     push();
     translate(width,0);
@@ -97,7 +99,17 @@ function growDisplay() {
             leaderboardReadout = true;
             loadLeaderboard();
         }
+        if (growDisplayCounter == 5) {
+            for (i = 0; i < mandalas.length; i++) {
+                mandalas[i].children[0].style.display = "flex";
+            }
+            for (i = 0; i < plants.length; i++) {
+                plants[i].children[0].style.display = "flex";
+            }
+        }
+
         growDisplayCounter++;
+        console.log(growDisplayCounter)
     }
 }
 
@@ -173,6 +185,7 @@ function runGraphics() {
 
 function tooFast() {
     document.getElementById('individualBreathCount').innerHTML = "TOO FAST!!!";
+    document.getElementById('justBreathCount').innerHTML = "TOO FAST!!!";
     document.getElementById('individualBreathCount').style.fontSize = "xx-large";
     document.getElementById('universalBreathCount').style.visibility = "hidden";
     document.getElementById('sessionBreathCount').style.visibility = "hidden";
