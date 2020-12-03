@@ -1,4 +1,3 @@
-console.log(plants[0]);
 
 function draw() {
     push();
