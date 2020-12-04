@@ -114,7 +114,20 @@ function setup() {
 }
 
 function initialFetches() {
-    
+    fetch("https://type.fit/api/quotes")
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data);
+        quoteData = data;
+    });
+
+    fetch("https://freesound.org/apiv2/search/text/?query=soothing&token=vdWfnwlKlxbL6YJGxNHDPrxdzPAluoeNg0Kv5ii4")
+    .then(response => response.json())
+    .then(data2 => {
+        // console.log(data2);
+        soundData = data2.results;
+        console.log(soundData);
+    });
 }
 
 function runTutorial() {
