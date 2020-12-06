@@ -10,11 +10,11 @@ function setup() {
 
     if (!storedUsername) {
         // RUN TUTORIAL HERE
-        document.getElementById('tutorialDiv').style.display = "flex";
         runTutorial();
     } else {
         console.log(storedUsername)
         userName = storedUsername;
+        document.getElementById('runTutorialButton').style.display = "flex";
         beginningProtocols();
         startBreathing = true;
     }
@@ -35,6 +35,10 @@ function setup() {
         }
     });
 
+    setupSockets();
+}
+
+function setupSockets() {
     socket.on('msg', function(newIncomingBreaths) {
         universalBreathCount += newIncomingBreaths;
         updateBreaths();
@@ -70,6 +74,7 @@ function setup() {
     });
     socket.on('challengeAccepted', function(challengeObject) {
         console.log(challengeObject);
+        challengeAccepted = true;
         try { 
             document.getElementById('ChallengeDisplay' + challengeObject.challenger2).style.display = "none";
         } catch {
@@ -103,7 +108,7 @@ function setup() {
             rewardButton.innerHTML = "Claim Reward";
             document.getElementById('mantraDisplay').appendChild(rewardButton);
             rewardButton.addEventListener('click', () => {
-                individualBreathCount += userReward;
+                individualBreathCount += parseInt(userReward);
                 updateBreaths();
                 rewardButton.remove();
                 document.getElementById('mantraDiv').style.display = "none";
@@ -111,33 +116,85 @@ function setup() {
             });
         }
     });
+    socket.on('bettingTimeout', function(timeoutUserName) {
+        console.log("timeout from: ", timeoutUserName);
+        document.getElementById('ChallengeDisplay' + timeoutUserName).style.display = "none";
+    });
 }
 
 function initialFetches() {
+    fetch("https://freesound.org/apiv2/search/text/?query=jazzdrum&token=vdWfnwlKlxbL6YJGxNHDPrxdzPAluoeNg0Kv5ii4")
+    .then(response => response.json())
+    .then(data2 => {
+        console.log(data2);
+        soundData = data2.results;
+        console.log(soundData);
+        newSong();
+    });
+
     fetch("https://type.fit/api/quotes")
     .then(response => response.json())
     .then(data => {
         // console.log(data);
         quoteData = data;
     });
-
-    fetch("https://freesound.org/apiv2/search/text/?query=soothing&token=vdWfnwlKlxbL6YJGxNHDPrxdzPAluoeNg0Kv5ii4")
-    .then(response => response.json())
-    .then(data2 => {
-        // console.log(data2);
-        soundData = data2.results;
-        console.log(soundData);
-    });
 }
 
 function runTutorial() {
+    console.log(tutorialVideoWidth, tutorialVideoHeight);
+    document.getElementById('tutorialDiv').style.display = "flex";
+    document.getElementById('tutorialVideoCaptureDiv').style.display = "flex";
+    Canvas.parent('tutorialVideoCaptureDiv');
     tutorialVideoWidth = document.getElementById('tutorialVideoCaptureDiv').offsetWidth;
     tutorialVideoHeight = document.getElementById('tutorialVideoCaptureDiv').offsetHeight;
     resizeCanvas(tutorialVideoWidth, tutorialVideoHeight);
-    Canvas.parent('tutorialVideoCaptureDiv');
     tutorial = true;
-    let slideCounter = 1;
-    document.getElementById('nextButton').addEventListener('click', () => {
+    document.getElementById('slide1Text').style.display = "flex";
+    document.getElementById('nextButton').style.display = "flex";
+    document.getElementById('nextButton').addEventListener('click', nextButton);
+    document.getElementById('usernameInputButton').addEventListener('click', () => {
+        userName = document.getElementById('usernameInput').value;
+        console.log(userName);
+        if (userName != "") {
+            localStorage.username = userName;
+            document.getElementById('usernameInput').value = "";
+            beginningProtocols();
+            startBreathing = true;
+            tutorial = false;
+            slideCounter = 1;
+            document.getElementById('tutorialDiv').style.display = "none";
+            document.getElementById('usernameInputButton').style.display = "none";
+            document.getElementById('inputDisplay').style.display = "none";
+            document.getElementById('slide5Text').style.display = "none";
+            document.getElementById('runTutorialButton').style.display = "flex";
+            document.getElementById('nextButton').removeEventListener('click', nextButton);
+        }
+    });
+    window.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            if (!startBreathing) {
+                userName = document.getElementById('usernameInput').value;
+                console.log(userName);
+                if (userName != "") {
+                    localStorage.username = userName;
+                    document.getElementById('usernameInput').value = "";
+                    beginningProtocols();
+                    startBreathing = true;
+                    tutorial = false;
+                    slideCounter = 1;
+                    document.getElementById('tutorialDiv').style.display = "none";
+                    document.getElementById('usernameInputButton').style.display = "none";
+                    document.getElementById('inputDisplay').style.display = "none";
+                    document.getElementById('slide5Text').style.display = "none";
+                    document.getElementById('runTutorialButton').style.display = "flex";
+                    document.getElementById('nextButton').removeEventListener('click', nextButton);
+                }
+            }
+        }
+    });
+}
+
+function nextButton() {
         slideCounter++;
         console.log(slideCounter);
         for (i = 2; i < 6; i++) {
@@ -169,33 +226,6 @@ function runTutorial() {
             document.getElementById('usernameInputButton').style.display = "flex";
             document.getElementById('inputDisplay').style.display = "flex";
         }
-    });
-    document.getElementById('usernameInputButton').addEventListener('click', () => {
-        userName = document.getElementById('usernameInput').value;
-        if (userName != "") {
-            localStorage.username = userName;
-            document.getElementById('usernameInput').value = "";
-            beginningProtocols();
-            startBreathing = true;
-            tutorial = false;
-            document.getElementById('tutorialDiv').style.display = "none";
-        }
-    });
-    window.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            if (!userName) {
-                userName = document.getElementById('usernameInput').value;
-                if (userName != "") {
-                    localStorage.username = userName;
-                    document.getElementById('usernameInput').value = "";
-                    beginningProtocols();
-                    startBreathing = true;
-                    tutorial = false;
-                    document.getElementById('tutorialDiv').style.display = "none";
-                }
-            }
-        }
-    });
 }
 
 function beginningProtocols() {
@@ -216,6 +246,7 @@ function beginningProtocols() {
 
 
 function getUserData() {
+    console.log(userName);
     fetch('/getBreaths/' + userName)
     .then(response => response.json())
     .then(data => {
@@ -229,6 +260,11 @@ function getUserData() {
             }
             autoBreatherProfMultiplier = data.data[0].autoBreatherProfMultiplier;
             document.getElementById('autoBreatherProfReadout').innerHTML = "x" + autoBreatherProfMultiplier;
+            if (autoBreatherProfMultiplier > 0) {
+                lastABProfCost = 100 * (10 ** autoBreatherProfMultiplier);
+                document.getElementById('autoProfCost').innerHTML = "Cost: " + lastABProfCost + " Breaths";
+            }
+            setInterval(() => { runAutoBreathers(); }, (2500/autoBreatherProfMultiplier));
             fidelityBonus = data.data[0].fidelityBonus;
             document.getElementById('consistencyBonusReadout').innerHTML = fidelityBonus;
             aidCounter = data.data[0].aidCounter;
@@ -256,6 +292,13 @@ function getUserData() {
                     document.getElementById('autoBreatherReadout').innerHTML = autoCounter;
                     let autoBreathsPerSecond = round(autoCounter/(2/autoBreatherProfMultiplier), 2);
                     document.getElementById('autoBPSReadout').innerHTML = autoBreathsPerSecond;
+                    let coefficient = 0.1;
+                    for (i = 0; i < autoCounter; i++) {
+                        lastABCost = lastABCost * (2 + coefficient);
+                        coefficient += 0.1;
+                    }
+                    lastABCost = floor(lastABCost);
+                    document.getElementById('autoCost').innerHTML = "Cost: " + lastABCost + " Breaths";
                 }
             }
             standard = data.data[0].standard;
@@ -269,6 +312,7 @@ function getUserData() {
         }
         lastBreathCount = individualBreathCount;
         updateBreaths();
+        growDisplayCounter = 0;
         let message = "Next upgrade at " + upgradeIntervals[upgradeCounter] + " breaths. Upgrade Points: " + upgradePoints;
         newMessage(message);
         setInterval(() => { postData(); }, 20000);

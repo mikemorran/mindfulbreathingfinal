@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
     <script src="https://unpkg.com/ml5@0.4.2/dist/ml5.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body id="body">
     <audio id="soothingMusicAudio"></audio>
     <audio id="warningAudio" src="Gopher.mp3"></audio>
+    <button id="runTutorialButton">Run Tutorial</button>
     <div id="mantraDiv" class="mantraDiv">
         <div id="mantraDisplay" class="mantraDisplay">
             <h1 id="mantraTitle">MANTRA MANIA</h1>
@@ -37,7 +39,7 @@
             <div class="instructionsDiv">
                 <p id="slide1Text">With this application, you will use your body to reach new heights of calm and self-actualization. Take a moment to ensure your camera is enabled. If you are on a PC, please make sure there are no other applications currently using your camera.</p>
                 <p id="slide2Text">Simply place your body within the frame of the camera, making sure that your head and a majority of your torso are visible.</p>
-                <p id="slide3Text">As you inhale, slowly raise your palms upwards until they reach eye level. As you exhale, flip your palms and slowly lower them facing downward until they pass through the bottom of the screen. Take a minute here to practice.</p>
+                <p id="slide3Text">As you inhale, slowly raise your palms upwards until they reach eye level. As you exhale, flip your palms and slowly lower them facing downward until they pass through the bottom of the screen. Take a moment to practice by matching your hands to the floating circles.</p>
                 <p id="slide4Text">If you have taken a mindful breath, you will see your Breath Count increase. Repeat the breathing process to unlock Mindfulness Enhancements on your journey toward Transcendence.</p>
                 <p id="slide5Text">Please note that backlighting and dark backgrounds may negatively influence breath-tracking performance. When you are ready to begin, simply enter a name that you feel best describes you today and click 'Start Breathing'</p>
                 <button id="nextButton">Next</button>
@@ -70,12 +72,14 @@
                     <button id="autoBreatherButton">Auto Breather</button>
                     <span id="autoBreatherReadout">0</span>
                 </div>
-                <span id="autoDescription">Add automatic breathers</span>
+                <span id="autoDescription">Add automatic breathers || </span>
+                <span id="autoCost">Cost: 20 Breaths</span>
                 <div class="autoBreatherProfDisplay">
                     <button id="autoBreatherProfButton">Auto Breather Proficiency</button>
                     <span id="autoBreatherProfReadout">x0</span>
                 </div>
                 <span id="autoProfDescription">Increase speed of automatic breathing</span>
+                <span id="autoProfCost">Cost: 100 Breaths</span>
             </div>
             <div id="Metrics" class="metricsDiv">
                 <h3 id="metricsTitle">Breathing Metrics</h3>

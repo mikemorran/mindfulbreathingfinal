@@ -1,25 +1,27 @@
 function postData() {
     // console.log("DATA SENT");
-    let userObject = {
-        "name" : userName,
-        "individualBreathBreathCount" : individualBreathCount,
-        "standard" : standard,
-        "fidelityBonus" : fidelityBonus,
-        "aidCounter" : aidCounter,
-        "autoCounter" : autoCounter,
-        "autoBreatherProfMultiplier" : autoBreatherProfMultiplier,
-        "upgradePoints" : upgradePoints
-    }
-    let userJsonData = JSON.stringify(userObject);
+    if (startBreathing) {
+        let userObject = {
+            "name" : userName,
+            "individualBreathBreathCount" : individualBreathCount,
+            "standard" : standard,
+            "fidelityBonus" : fidelityBonus,
+            "aidCounter" : aidCounter,
+            "autoCounter" : autoCounter,
+            "autoBreatherProfMultiplier" : autoBreatherProfMultiplier,
+            "upgradePoints" : upgradePoints
+        }
+        let userJsonData = JSON.stringify(userObject);
 
-    // POST user specific object to server
-    fetch('/sendBreaths', {
-        method : 'POST',
-        headers : {
-            "Content-type": "application/json"
-        },
-        body : userJsonData
-    })
+        // POST user specific object to server
+        fetch('/sendBreaths', {
+            method : 'POST',
+            headers : {
+                "Content-type": "application/json"
+            },
+            body : userJsonData
+        });
+    }
 }
 
 function loadLeaderboard() {
@@ -76,4 +78,46 @@ function newSong() {
         audio.play();
         audio.loop = true;
     });
+}
+
+function shrinkDisplay() {
+        for (i = 0; i < growDisplayIntervals.length; i++) {
+            if (growDisplayCounter >= i) {
+                document.getElementById(displayComponentIds[i]).style.visibility = "hidden"
+            }
+        }
+        if (growDisplayCounter >= 3) {
+            document.getElementById('breathCounts').style.display = "none";
+            document.getElementById('justBreathCount').style.display = "flex";
+        }
+        if (growDisplayCounter >= 5) {
+            for (i = 0; i < mandalas.length; i++) {
+                mandalas[i].children[0].style.display = "none";
+            }
+            for (i = 0; i < plants.length; i++) {
+                plants[i].children[0].style.display = "none";
+            }
+        }
+        document.getElementById("body").style.color = "";
+        document.getElementById("body").style.backgroundImage = "";
+        document.getElementById("body").style.backgroundRepeat = "";
+        document.getElementById("body").style.backgroundSize = "";
+        motivationalQuotesDraw = false;
+        prettyHandsDraw = false;
+        for (i = 0; i < 10; i++) {
+            let readout = document.getElementById('number' + (i+1) + "Readout");
+            let marker = document.getElementById('number' + (i+1) + "Marker");
+            readout.style.visibility = "hidden";
+            marker.style.visibility = "hidden";
+        }
+        document.getElementById('userRankDisplay').style.visibility = "hidden";
+        leaderboardReadout = false;
+}
+
+function newMessage(message) {
+    let readOut = document.createElement("span");
+    readOut.className = "readout";
+    readOut.innerHTML = "> " + message;
+    let consoleDiv = document.getElementById('Console');
+    consoleDiv.appendChild(readOut);
 }

@@ -2,8 +2,8 @@ document.getElementById('mindfulnessStandardButton').addEventListener('click', f
     if (upgradeAvailable) {
         console.log('Standard Chosen');
         standardActivated = true;
-        if (standard > 0) {
-            standard -= 4;
+        if (standard > 50) {
+            standard -= 50;
                 if (standardActivated) {
                     document.getElementById('mindfulnessStandardReadout').innerHTML = "+/- " + standard;
                 }
@@ -56,35 +56,44 @@ document.getElementById('mindfulnessAidsButton').addEventListener('click', funct
 });
 
 document.getElementById('autoBreatherButton').addEventListener('click', function() {
-    if (upgradeAvailable){
+    if (individualBreathCount >= lastABCost) {
         console.log('Autobreather Chosen');
-        autoActivated = true;
+        individualBreathCount -= lastABCost;
         autoCounter++;
-        upgradePoints -= 1;
-        let message = "Auto Breather added. Upgrade Points: " + upgradePoints;
+        autoActivated = true;
+        let costCoefficient = 0;
+        costCoefficient += 2 + (0.2 * autoCounter);
+        let newABCost = floor(lastABCost * costCoefficient);
+        document.getElementById('autoCost').innerHTML = "Cost: " + newABCost + " Breaths";
+        lastABCost = newABCost;
+        let message = "Auto Breather added.";
         newMessage(message);
         document.getElementById('autoBreatherReadout').innerHTML = autoCounter;
         let autoBreathsPerSecond = round(autoCounter/(2/autoBreatherProfMultiplier), 2);
         document.getElementById('autoBPSReadout').innerHTML = autoBreathsPerSecond;
     } else {
-        console.log('no points')
-        let message = "No upgrade points available.";
+        let message = "Insufficient Breaths";
         newMessage(message);
     }
 });
 
 document.getElementById('autoBreatherProfButton').addEventListener('click', function() {
-    if (upgradeAvailable) {
+    if (individualBreathCount >= lastABProfCost) {
         console.log('Proficiency Chosen');
+        individualBreathCount -= lastABProfCost;
         autoBreatherProfMultiplier++;
-        upgradePoints -= 1;
+        let newABProfCost = lastABProfCost * 10;
+        document.getElementById('autoProfCost').innerHTML = "Cost: " + newABProfCost + " Breaths";
+        lastABProfCost = newABProfCost;
+        setInterval(() => { runAutoBreathers(); }, (2500/autoBreatherProfMultiplier));
         let message = "Auto Breather proficiency increased. Upgrade Points: " + upgradePoints;
         newMessage(message);
         document.getElementById('autoBreatherProfReadout').innerHTML = "x" + autoBreatherProfMultiplier;
         let autoBreathsPerSecond = round(autoCounter/(2/autoBreatherProfMultiplier), 2);
         document.getElementById('autoBPSReadout').innerHTML = autoBreathsPerSecond;
     } else {
-        console.log('no points')
+        let message = "Insufficient Breaths";
+        newMessage(message);
     }
 });
 
@@ -99,22 +108,42 @@ warningAudio.addEventListener('ended', () => {
 
 document.getElementById('bettingButton').addEventListener('click', () => {
     let wager = document.getElementById('bettingInput').value;
-    if (isNaN(wager) == false && wager <= individualBreathCount && !wagerSent && wager != "") {
-        wagerSent = true;
-        document.getElementById('bettingInput').value = "";
-        console.log(wager);
-        individualBreathCount -= wager;
-        updateBreaths();
-        let userObject = {
-            "name" : userName,
-            "wager" : wager
+    if (isNaN(wager) == false && wager <= individualBreathCount && wager != "") {
+        if (!wagerSent) {
+            wagerSent = true;
+            challengeAccepted = false;
+            bettingTimeoutStart = millis();
+            document.getElementById('bettingInput').value = "";
+            console.log(wager);
+            individualBreathCount -= wager;
+            updateBreaths();
+            let userObject = {
+                "name" : userName,
+                "wager" : wager
+            }
+            socket.emit('bet', userObject);
+            let message = "Challenge sent. Waiting for response...";
+            newMessage(message);
+            reimbursementValue = parseInt(wager);
+        } else {
+            let message = "You already have an outstanding challenge";
+            newMessage(message);
         }
-        socket.emit('bet', userObject);
-        let message = "Challenge sent. Waiting for response...";
-        newMessage(message);
     } else {
         console.log("Invalid Input");
         let message = "Invalid input";
         newMessage(message);
     }
+});
+
+document.getElementById('runTutorialButton').addEventListener('click', () => {
+    console.log('RUN TUTORIAL');
+    startBreathing = false;
+    document.getElementById('slide1Text').style.display = "flex";
+    runTutorial();
+    document.getElementById('runTutorialButton').style.display = "none";
+    slideCounter = 1;
+    shrinkDisplay();
+    individualBreathCount = 0;
+    sessionBreathCount = 0;
 });

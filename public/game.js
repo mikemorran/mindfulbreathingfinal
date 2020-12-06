@@ -1,11 +1,6 @@
-let ellipseY = 0;
-let ellipseUpward = true;
-let ellipseVelocity = 1;
-let tutorialBreathCount = 0;
-
 function draw() {
     if (tutorial) {
-        console.log('drawingVideo');
+        // console.log(width, height);
         push();
         translate(width, 0);
         scale(-1, 1);
@@ -18,7 +13,7 @@ function draw() {
             ellipse(tutorialVideoWidth/5, tutorialVideoHeight - ellipseY, 50);
             ellipse(4*tutorialVideoWidth/5, tutorialVideoHeight - ellipseY, 50);
             ellipseY += ellipseVelocity;
-            if (ellipseY <= 0 || ellipseY >= tutorialVideoHeight * 0.8) {
+            if (ellipseY <= -25 || ellipseY >= tutorialVideoHeight * 0.8) {
                 ellipseVelocity *= -1;
             }
         }
@@ -36,14 +31,15 @@ function draw() {
         if (pose.rightWrist.y >= height && pose.leftWrist.y >= height) {
             if (!inhaleComplete) {
                 breathStart = true;
-                breathBeginTimer = counter;
+                breathBeginTimer = millis();
             }
             if (inhaleComplete) {
                 inhaleComplete = false;
-                breathEndTimer = counter;
+                breathEndTimer = millis();
                 breathTimerDifference = breathEndTimer - breathBeginTimer;
 
-                if (breathTimerDifference >= 75) {
+                if (breathTimerDifference >= 2500) {
+                    console.log(breathTimerDifference);
                     breathRates.push(breathTimerDifference);
                     sessionBreathCount += mindfulnessAidMultiplier;
                     individualBreathCount += mindfulnessAidMultiplier;
@@ -87,12 +83,12 @@ function draw() {
             breathStart = false;
         }
         runGraphics();
-        runAutoBreathers();
         runUpgrades();
         growDisplay();
     }
     counter++;
     endBettingMinigame();
+    bettingTimeout();
 }
 
 function runUpgrades() {
@@ -133,19 +129,24 @@ function growDisplay() {
                 plants[i].children[0].style.display = "flex";
             }
         }
-
         growDisplayCounter++;
         console.log(growDisplayCounter)
     }
 }
 
+
 function runAutoBreathers() {
     if (autoActivated) {
-        if (counter % (Math.floor(120/autoBreatherProfMultiplier)) == 0) {
-            individualBreathCount += autoCounter;
-            sessionBreathCount += autoCounter;
-            universalBreathCount += autoCounter;
-            updateBreaths();
+        let offset = 0;
+        for (i = 0; i < autoCounter; i++) {
+            setTimeout(() => {
+                individualBreathCount += 1;
+                sessionBreathCount += 1;
+                universalBreathCount += 1;
+                updateBreaths();
+            }, 100 + offset);
+            offset += 100;
+            // console.log(offset);
         }
     }
 }
@@ -198,15 +199,6 @@ function runGraphics() {
         }
         black = !black;
     }
-    // for (i = 0; i < mandalas.length; i++) {
-    //     let randomChangeX = random(-1, 1);
-    //     let randomChangeY = random(-1, 1);
-    //     let oldTop = mandalas[i].top;
-    //     let oldLeft = mandalas[i].left;
-    //     console.log(oldTop);
-    //     console.log(oldLeft);
-
-    // }
 }
 
 function tooFast() {
@@ -228,16 +220,8 @@ function updateBreaths() {
     document.getElementById('justBreathCount').innerHTML = "Breath Count: " + individualBreathCount;
 }
 
-function newMessage(message) {
-    let readOut = document.createElement("span");
-    readOut.className = "readout";
-    readOut.innerHTML = "> " + message;
-    let consoleDiv = document.getElementById('Console');
-    consoleDiv.appendChild(readOut);
-}
-
 function addBreaths() {
     individualBreathCount += 20000;
     sessionBreathCount += 20000;
-    updateBreaths;
+    updateBreaths();
 }

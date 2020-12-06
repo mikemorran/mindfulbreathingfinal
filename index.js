@@ -106,8 +106,13 @@ io.sockets.on('connection', function(socket) {
         console.log(scoreObject);
         socket.broadcast.emit('bettingOver', scoreObject);
     });
+
+    socket.on('bettingTimeout', function(userName) {
+        console.log("Timeout from: ", userName);
+        socket.broadcast.emit('bettingTimeout', userName);
+    });
 });
 
-// db.remove({"_id":"Atuf9xwlq4dTrVWk"}, {}, function (err, numRemoved) {
+// db.remove({"_id":"rveGUNdNxC9uHiQ2"}, {}, function (err, numRemoved) {
 //     // numRemoved = 1
 //   });
