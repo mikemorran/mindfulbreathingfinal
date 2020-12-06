@@ -123,7 +123,7 @@ function setupSockets() {
 }
 
 function initialFetches() {
-    fetch("https://freesound.org/apiv2/search/text/?query=jazzdrum&token=vdWfnwlKlxbL6YJGxNHDPrxdzPAluoeNg0Kv5ii4")
+    fetch("https://freesound.org/apiv2/search/text/?query=relaxing&token=vdWfnwlKlxbL6YJGxNHDPrxdzPAluoeNg0Kv5ii4")
     .then(response => response.json())
     .then(data2 => {
         console.log(data2);
