@@ -1,4 +1,6 @@
 function startBettingMinigame(challengeInfo) {
+    upNext = 3;
+    newSong();
     document.getElementById('mantraInputDisplay').style.display = "flex";
     document.getElementById('mantra').style.display = "flex";
     document.getElementById('mantraTitle').innerHTML = "MANTRA MANIA";

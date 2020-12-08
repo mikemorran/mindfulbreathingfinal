@@ -209,11 +209,31 @@ body {
     font-size: 12px;
 }
 
+#aidCost {
+    font-size: 12px;
+}
+
 .mindfulnessStandardDisplay {
     margin-top: 0.5em;
 }
 
 #standardDescription {
+    font-size: 12px;
+}
+
+#standardCost {
+    font-size: 12px;
+}
+
+.breathingGuidesDisplay {
+    margin-top: 0.5em;
+}
+
+#breathingGuidesDescription {
+    font-size: 12px;
+}
+
+#breathingGuidesCost {
     font-size: 12px;
 }
 
@@ -350,7 +370,7 @@ body {
     flex-direction: column;
     border-style: solid;
     justify-content: flex-end;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 25%;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -425,14 +445,13 @@ body {
 }
 
 .inhaleExhale {
-    display: flex;
+    display: none;
     position: fixed;
     z-index: 5;
     top: 15%;
     width: 45%;
     height: 55%;
     justify-content: space-between;
-    visibility: hidden;
 }
 
 .inhaleExhaleTitle {
@@ -450,7 +469,7 @@ body {
 }
 
 .plants {
-    display: none;
+    display: flex;
     position: fixed;
     z-index: 3;
     width: 150px;
@@ -462,67 +481,77 @@ body {
     top: 68%;
     position: fixed;
     z-index: 3;
+    display: none;
 }
 #plant2Display {
     left: -5%;
     top: 68%;
     position: fixed;
     z-index: 3;
+    display: none;
 }
 #plant3Display {
     left: 12%;
     top: 68%;
     position: fixed;
     z-index: 3;
+    display: none;
 }
 #plant4Display {
     left: 15%;
     top: 68%;
     position: fixed;
     z-index: 3;
+    display: none;
 }
 #plant5Display {
     left: 70%;
     top: 68%;
     position: fixed;
     z-index: 3;
+    display: none;
 }
 #plant6Display {
     left: 72%;
     top: 68%;
     position: fixed;
     z-index: 3;
+    display: none;
 }
 #plant7Display {
     left: 20%;
     top: 68%;
     position: fixed;
     z-index: 3;
+    display: none;
 }
 #plant8Display {
     left: 45%;
     top: 68%;
     position: fixed;
     z-index: 3;
+    display: none;
 }
 #plant9Display {
     left: 95%;
     top: 68%;
     position: fixed;
     z-index: 3;
+    display: none;
 }
 #plant10Display {
     left: 60%;
     top: 68%;
     position: fixed;
     z-index: 3;
+    display: none;
 }
 
 .mandalas {
     width: 150px;
     height: 150px;
     position: fixed;
-    display: none;
+    display: flex;
     z-index: 4;
 }
 
@@ -533,6 +562,7 @@ body {
     top: 3%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala2Display {
@@ -542,6 +572,7 @@ body {
     top: 3%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala3Display {
@@ -551,6 +582,7 @@ body {
     top: 50%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala4Display {
@@ -560,6 +592,7 @@ body {
     top: 15%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala5Display {
@@ -569,6 +602,7 @@ body {
     top: 60%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala6Display {
@@ -578,6 +612,7 @@ body {
     top: 45%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala7Display {
@@ -587,6 +622,7 @@ body {
     top: 60%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala8Display {
@@ -596,6 +632,7 @@ body {
     top: 4%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala9Display {
@@ -605,6 +642,7 @@ body {
     top: 20%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala10Display {
@@ -614,6 +652,7 @@ body {
     top: -5%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala11Display {
@@ -623,6 +662,7 @@ body {
     top: 15%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala12Display {
@@ -632,6 +672,7 @@ body {
     top: 15%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala13Display {
@@ -641,6 +682,7 @@ body {
     top: 10%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala14Display {
@@ -650,6 +692,7 @@ body {
     top: 5%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala15Display {
@@ -659,6 +702,7 @@ body {
     top: 5%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala16Display {
@@ -668,6 +712,7 @@ body {
     top: -10%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala17Display {
@@ -677,6 +722,7 @@ body {
     top: 15%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala18Display {
@@ -686,6 +732,7 @@ body {
     top: -5%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala19Display {
@@ -695,6 +742,7 @@ body {
     top: 0%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 #mandala20Display {
@@ -704,6 +752,7 @@ body {
     top: 5%;
     position: fixed;
     z-index: 4;
+    display: none;
 }
 
 

@@ -7,7 +7,7 @@ document.getElementById('mindfulnessStandardButton').addEventListener('click', f
                 if (standardActivated) {
                     document.getElementById('mindfulnessStandardReadout').innerHTML = "+/- " + standard;
                 }
-            fidelityBonus += 5;
+            fidelityBonus += 10;
             upgradePoints -= 1;
             let message = "Mindfulness Standard raised. Upgrade Points: " + upgradePoints;
             newMessage(message);
@@ -51,7 +51,9 @@ document.getElementById('mindfulnessAidsButton').addEventListener('click', funct
         }
         document.getElementById('BPBReadout').innerHTML = 1 * mindfulnessAidMultiplier;
     } else {
-        console.log('no points')
+        console.log('no points');
+        let message = "No upgrade points available.";
+        newMessage(message);
     }
 });
 
@@ -62,7 +64,7 @@ document.getElementById('autoBreatherButton').addEventListener('click', function
         autoCounter++;
         autoActivated = true;
         let costCoefficient = 0;
-        costCoefficient += 2 + (0.2 * autoCounter);
+        costCoefficient += 1.5 + (0.2 * autoCounter);
         let newABCost = floor(lastABCost * costCoefficient);
         document.getElementById('autoCost').innerHTML = "Cost: " + newABCost + " Breaths";
         lastABCost = newABCost;
@@ -86,7 +88,7 @@ document.getElementById('autoBreatherProfButton').addEventListener('click', func
         document.getElementById('autoProfCost').innerHTML = "Cost: " + newABProfCost + " Breaths";
         lastABProfCost = newABProfCost;
         setInterval(() => { runAutoBreathers(); }, (2500/autoBreatherProfMultiplier));
-        let message = "Auto Breather proficiency increased. Upgrade Points: " + upgradePoints;
+        let message = "Auto Breather proficiency increased.";
         newMessage(message);
         document.getElementById('autoBreatherProfReadout').innerHTML = "x" + autoBreatherProfMultiplier;
         let autoBreathsPerSecond = round(autoCounter/(2/autoBreatherProfMultiplier), 2);
@@ -100,6 +102,7 @@ document.getElementById('autoBreatherProfButton').addEventListener('click', func
 warningAudio.addEventListener('ended', () => {
     // console.log('warningAudio done');
     updateBreaths();
+    autoActivated = true;
     document.getElementById('universalBreathCount').style.visibility = "visible";
     document.getElementById('sessionBreathCount').style.visibility = "visible";
     document.getElementById('individualBreathCount').style.fontSize = "larger";
@@ -139,6 +142,7 @@ document.getElementById('bettingButton').addEventListener('click', () => {
 document.getElementById('runTutorialButton').addEventListener('click', () => {
     console.log('RUN TUTORIAL');
     startBreathing = false;
+    autoActivated = false;
     document.getElementById('slide1Text').style.display = "flex";
     runTutorial();
     document.getElementById('runTutorialButton').style.display = "none";
@@ -146,4 +150,45 @@ document.getElementById('runTutorialButton').addEventListener('click', () => {
     shrinkDisplay();
     individualBreathCount = 0;
     sessionBreathCount = 0;
+    universalBreathCount = 0;
+    autoCounter = 0;
+    aidCounter = 0;
+    mindfulnessAidMultiplier = 1;
+    upgradeCounter = 0;
+    growDisplayCounter = 0;
+    upgradePoints = 0;
+    fidelityBonus = 0;
+    autoBreatherProfMultiplier = 1;
+    lastABCost = 20;
+    lastABProfCost = 100;
+    standard = 500;
+    plantCounter = 1;
+    mandalaCounter = 1;
+    inhaleExhale = false;
+    document.getElementById('inhaleExhale').style.display = "none";
+    document.getElementById('autoProfCost').innerHTML = "Cost: " + lastABProfCost + " Breaths";
+    document.getElementById('autoCost').innerHTML = "Cost: " + lastABCost + " Breaths";
+    document.getElementById('Console').innerHTML = "";
+});
+
+document.getElementById('breathingGuidesButton').addEventListener('click', () => {
+    // console.log('button clicked');
+    if (upgradeAvailable && upgradePoints >= 2) {
+        if (!inhaleExhale) {
+            upgradePoints -= 2;
+            inhaleExhale = true;
+            mindfulnessAidMultiplier *= 5;
+            guidedBreathStart = millis();
+            document.getElementById('inhaleExhale').style.display = "flex";
+            document.getElementById('breathingGuidesReadout').innerHTML = "ON";
+            let message = "Breathing Guides activated. Upgrade Points: " + upgradePoints;
+            newMessage(message);
+        } else {
+            let message = "Guides already active";
+            newMessage(message);
+        }
+    } else {
+        let message = "Insufficient Upgrade Points";
+        newMessage(message);
+    }
 });

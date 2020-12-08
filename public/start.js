@@ -113,6 +113,8 @@ function setupSockets() {
                 rewardButton.remove();
                 document.getElementById('mantraDiv').style.display = "none";
                 wagerSent = false;
+                upNext = 1;
+                newSong();
             });
         }
     });
@@ -123,15 +125,6 @@ function setupSockets() {
 }
 
 function initialFetches() {
-    fetch("https://freesound.org/apiv2/search/text/?query=relaxing&token=vdWfnwlKlxbL6YJGxNHDPrxdzPAluoeNg0Kv5ii4")
-    .then(response => response.json())
-    .then(data2 => {
-        console.log(data2);
-        soundData = data2.results;
-        console.log(soundData);
-        newSong();
-    });
-
     fetch("https://type.fit/api/quotes")
     .then(response => response.json())
     .then(data => {
@@ -149,6 +142,8 @@ function runTutorial() {
     tutorialVideoHeight = document.getElementById('tutorialVideoCaptureDiv').offsetHeight;
     resizeCanvas(tutorialVideoWidth, tutorialVideoHeight);
     tutorial = true;
+    upNext = 0;
+    newSong();
     document.getElementById('slide1Text').style.display = "flex";
     document.getElementById('nextButton').style.display = "flex";
     document.getElementById('nextButton').addEventListener('click', nextButton);
@@ -241,6 +236,9 @@ function beginningProtocols() {
 
     // SET INTERVALS FOR LEADERBOARD AND DATA POST
     setInterval(() => { loadLeaderboard(); }, 30000);
+
+    upNext = 1;
+    newSong();
 }
 
 
@@ -292,9 +290,9 @@ function getUserData() {
                     document.getElementById('autoBreatherReadout').innerHTML = autoCounter;
                     let autoBreathsPerSecond = round(autoCounter/(2/autoBreatherProfMultiplier), 2);
                     document.getElementById('autoBPSReadout').innerHTML = autoBreathsPerSecond;
-                    let coefficient = 0.1;
+                    let coefficient = 0.2;
                     for (i = 0; i < autoCounter; i++) {
-                        lastABCost = lastABCost * (2 + coefficient);
+                        lastABCost = lastABCost * (1.5 + coefficient);
                         coefficient += 0.1;
                     }
                     lastABCost = floor(lastABCost);
@@ -302,19 +300,25 @@ function getUserData() {
                 }
             }
             standard = data.data[0].standard;
-            if (standard < 24) {
+            if (standard < 500) {
                 standardActivated = true;
                 if (standardActivated) {
                     document.getElementById('mindfulnessStandardReadout').innerHTML = "+/- " + standard;
                 }
             }
             upgradePoints = data.data[0].upgradePoints;
+            let message = "Next upgrade at " + upgradeIntervals[upgradeCounter] + " breaths. Upgrade Points: " + upgradePoints;
+            newMessage(message);
+            inhaleExhale = data.data[0].inhaleExhale;
+            if (inhaleExhale) {
+                document.getElementById('breathingGuidesReadout').innerHTML = "ON";
+                guidedBreathStart = millis();
+                document.getElementById('inhaleExhale').style.display = "flex";
+            }
         }
         lastBreathCount = individualBreathCount;
         updateBreaths();
         growDisplayCounter = 0;
-        let message = "Next upgrade at " + upgradeIntervals[upgradeCounter] + " breaths. Upgrade Points: " + upgradePoints;
-        newMessage(message);
         setInterval(() => { postData(); }, 20000);
     });
 }

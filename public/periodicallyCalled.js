@@ -9,7 +9,8 @@ function postData() {
             "aidCounter" : aidCounter,
             "autoCounter" : autoCounter,
             "autoBreatherProfMultiplier" : autoBreatherProfMultiplier,
-            "upgradePoints" : upgradePoints
+            "upgradePoints" : upgradePoints,
+            "inhaleExhale" : inhaleExhale
         }
         let userJsonData = JSON.stringify(userObject);
 
@@ -67,10 +68,7 @@ function loadLeaderboard() {
 function newSong() {
     // console.log('new song');
     updateBreaths();
-    randomSoundChoice = Math.floor(Math.random() * soundData.length);
-    randomSoundId = soundData[randomSoundChoice].id;
-    console.log(randomSoundId)
-    fetch("https://freesound.org/apiv2/sounds/" + randomSoundId + "/?token=vdWfnwlKlxbL6YJGxNHDPrxdzPAluoeNg0Kv5ii4")
+    fetch("https://freesound.org/apiv2/sounds/" + soundIds[upNext] + "/?token=vdWfnwlKlxbL6YJGxNHDPrxdzPAluoeNg0Kv5ii4")
     .then(response => response.json())
     .then(data => {
         mp3URL = data.previews['preview-hq-mp3'];

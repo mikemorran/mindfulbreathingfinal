@@ -46,7 +46,6 @@ function draw() {
                     universalBreathCount += mindfulnessAidMultiplier;
 
                     if (breathRates) {
-                        let breathRateAverage = 0;
                         let breathRatesTotal = 0;
                         for (i = 0; i < breathRates.length; i++) {
                             breathRatesTotal += breathRates[i];
@@ -61,7 +60,7 @@ function draw() {
                             }
                         }
                         document.getElementById('averageReadout').innerHTML = breathRateAverage;
-                        document.getElementById('lastBreathReadout').innerHTML = breathTimerDifference;
+                        document.getElementById('lastBreathReadout').innerHTML = floor(breathTimerDifference);
                     }
 
                     // Update document
@@ -85,11 +84,36 @@ function draw() {
         runGraphics();
         runUpgrades();
         growDisplay();
+        addMandalaPlant();
     }
     counter++;
     endBettingMinigame();
     bettingTimeout();
 }
+
+function addMandalaPlant() {
+    for (i = 0; i < 30; i++) {
+        if (individualBreathCount >= (11000 + (1000 * i))) {
+            if (i % 3 != 0) {
+                if (mandalaCounter < 21) {
+                    let mandalaName = "mandala" + mandalaCounter + "Display";
+                    document.getElementById(mandalaName).style.display = "flex";
+                    mandalaCounter++;
+                } 
+            }
+            if (i % 3 == 0) {
+                if (plantCounter < 11) {
+                    let plantName = "plant" + plantCounter + "Display";
+                    document.getElementById(plantName).style.display = "flex";
+                    plantCounter++;
+                }
+            }
+            // console.log(i);
+            // console.log(mandalaCounter, plantCounter);
+        }
+    }
+}
+
 
 function runUpgrades() {
     // console.log("Upgrade Points: ", upgradePoints);
@@ -119,6 +143,7 @@ function growDisplay() {
             document.getElementById('breathCounts').style.display = "flex";
             document.getElementById('justBreathCount').style.display = "none";
             leaderboardReadout = true;
+            // upNext = 2;
             loadLeaderboard();
         }
         if (growDisplayCounter == 5) {
@@ -130,7 +155,7 @@ function growDisplay() {
             }
         }
         growDisplayCounter++;
-        console.log(growDisplayCounter)
+        // console.log(growDisplayCounter)
     }
 }
 
@@ -189,19 +214,37 @@ function runGraphics() {
             }
         }
     }
-    if (counter % 5 == 0) {
-        if (black) {
-            document.getElementsByClassName('inhaleExhaleTitle')[0].style.color = "red";
-            document.getElementsByClassName('inhaleExhaleTitle')[1].style.color = "red";
-        } else {
-            document.getElementsByClassName('inhaleExhaleTitle')[0].style.color = "black"; 
-            document.getElementsByClassName('inhaleExhaleTitle')[1].style.color = "black"; 
+    if (inhaleExhale) {
+        let guidedBreathEnd = millis();
+        let guidedBreathDifference = guidedBreathEnd - guidedBreathStart;
+        if (guidedBreathDifference <= breathRateAverage) {
+            inhaleAudio.play();
+            document.getElementById('inhale').style.visibility = "visible";
+            document.getElementById('exhale').style.visibility = "hidden";
         }
-        black = !black;
+        if (guidedBreathDifference > breathRateAverage) {
+            exhaleAudio.play();
+            document.getElementById('inhale').style.visibility = "hidden";
+            document.getElementById('exhale').style.visibility = "visible";
+        }
+        if (guidedBreathDifference >= (breathRateAverage * 2)) {
+            guidedBreathStart = millis();
+        }
+        if (counter % 5 == 0) {
+            if (black) {
+                document.getElementsByClassName('inhaleExhaleTitle')[0].style.color = "red";
+                document.getElementsByClassName('inhaleExhaleTitle')[1].style.color = "red";
+            } else {
+                document.getElementsByClassName('inhaleExhaleTitle')[0].style.color = "black"; 
+                document.getElementsByClassName('inhaleExhaleTitle')[1].style.color = "black"; 
+            }
+            black = !black;
+        }
     }
 }
 
 function tooFast() {
+    autoActivated = false;
     document.getElementById('individualBreathCount').innerHTML = "TOO FAST!!!";
     document.getElementById('justBreathCount').innerHTML = "TOO FAST!!!";
     document.getElementById('individualBreathCount').style.fontSize = "xx-large";
@@ -209,8 +252,8 @@ function tooFast() {
     document.getElementById('sessionBreathCount').style.visibility = "hidden";
     audio.pause();
     warningAudio.play();
-    let message = "You are not being mindful enough.";
-    newMessage(message);
+    // let message = "You are not being mindful enough.";
+    // newMessage(message);
 }
 
 function updateBreaths() {

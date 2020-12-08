@@ -12,6 +12,8 @@
 <body id="body">
     <audio id="soothingMusicAudio"></audio>
     <audio id="warningAudio" src="Gopher.mp3"></audio>
+    <audio id="inhaleAudio" src="inhale.mp3"></audio>
+    <audio id="exhaleAudio" src="exhale.mp3"></audio>
     <button id="runTutorialButton">Run Tutorial</button>
     <div id="mantraDiv" class="mantraDiv">
         <div id="mantraDisplay" class="mantraDisplay">
@@ -40,7 +42,7 @@
                 <p id="slide1Text">With this application, you will use your body to reach new heights of calm and self-actualization. Take a moment to ensure your camera is enabled. If you are on a PC, please make sure there are no other applications currently using your camera.</p>
                 <p id="slide2Text">Simply place your body within the frame of the camera, making sure that your head and a majority of your torso are visible.</p>
                 <p id="slide3Text">As you inhale, slowly raise your palms upwards until they reach eye level. As you exhale, flip your palms and slowly lower them facing downward until they pass through the bottom of the screen. Take a moment to practice by matching your hands to the floating circles.</p>
-                <p id="slide4Text">If you have taken a mindful breath, you will see your Breath Count increase. Repeat the breathing process to unlock Mindfulness Enhancements on your journey toward Transcendence.</p>
+                <p id="slide4Text">If you have taken a mindful breath, you will see your Breath Count increase. If your breath has not been mindful enough, the program will let you know. Repeat the breathing process to unlock Mindfulness Enhancements on your journey toward Transcendence.</p>
                 <p id="slide5Text">Please note that backlighting and dark backgrounds may negatively influence breath-tracking performance. When you are ready to begin, simply enter a name that you feel best describes you today and click 'Start Breathing'</p>
                 <button id="nextButton">Next</button>
             </div>
@@ -61,12 +63,20 @@
                     <button id="mindfulnessAidsButton">Mindfulness Aid</button>
                     <span id="mindfulnessAidsReadout">0/3</span>
                 </div>
-                <span id="aidDescription">Multiply the value of each manual breath</span>
+                <span id="aidDescription">Multiply the value of each manual breath || </span>
+                <span id="aidCost">Cost: 1 Upgrade Point</span>
                 <div class="mindfulnessStandardDisplay">
                     <button id="mindfulnessStandardButton">Mindfulness Standard</button>
                     <span id="mindfulnessStandardReadout"></span>
                 </div>
-                <span id="standardDescription">Raise the standard for manual breathing consistency bonuses</span>
+                <span id="standardDescription">Raise the standard for manual breathing consistency bonuses. Bonuses awarded for keeping breaths within standard of Mindfulness Average || </span>
+                <span id="standardCost">Cost: 1 Upgrade Point</span>
+                <div class="breathingGuidesDisplay">
+                    <button id="breathingGuidesButton">Breathing Guides</button>
+                    <span id="breathingGuidesReadout"></span>
+                </div>
+                <span id="breathingGuidesDescription">Activate guides to achieve perfect breath timing. Adds a 5x multiplier to manual breathing || </span>
+                <span id="breathingGuidesCost">Cost: 2 Upgrade Points</span>
                 <h4 id="automaticTitle">Automatic</h4>
                 <div class="autoBreatherDisplay">
                     <button id="autoBreatherButton">Auto Breather</button>
@@ -78,7 +88,7 @@
                     <button id="autoBreatherProfButton">Auto Breather Proficiency</button>
                     <span id="autoBreatherProfReadout">x0</span>
                 </div>
-                <span id="autoProfDescription">Increase speed of automatic breathing</span>
+                <span id="autoProfDescription">Increase speed of automatic breathing || </span>
                 <span id="autoProfCost">Cost: 100 Breaths</span>
             </div>
             <div id="Metrics" class="metricsDiv">
