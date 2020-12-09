@@ -12,6 +12,7 @@ function startBettingMinigame(challengeInfo) {
     }
     challengeWager = challengeInfo.wager;
     startBreathing = false;
+    autoActivated = false;
     minigameStartTime = millis();
     console.log("Running game for:", challengeInfo);
     document.getElementById('mantraDiv').style.display = "flex";
@@ -40,6 +41,7 @@ function endBettingMinigame() {
     // console.log(startBreathing);
     if (timeDifference >= 30000 && !startBreathing) {
         startBreathing = true;
+        autoActivated = true;
         console.log("minigame over");
         let userObject = {
             "challenger1" : challenger1,
