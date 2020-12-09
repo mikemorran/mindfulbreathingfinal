@@ -264,7 +264,7 @@ function updateBreaths() {
 }
 
 function addBreaths() {
-    individualBreathCount += 20000;
-    sessionBreathCount += 20000;
+    individualBreathCount += 10000;
+    sessionBreathCount += 10000;
     updateBreaths();
 }
